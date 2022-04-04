@@ -7,7 +7,7 @@ import numpy as np
 from utils.data_utils import get_loader
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from apex import amp
+# from apex import amp
 import scipy.io as scio
 import torch.nn.functional as F
 import argparse
