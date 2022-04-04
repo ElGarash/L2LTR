@@ -64,6 +64,7 @@ parser.add_argument("--eval_batch_size", default=32, type=int,
                         help="Total batch size for eval.")
 
 args = parser.parse_args()
+print(args)
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
