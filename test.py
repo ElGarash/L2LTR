@@ -17,7 +17,7 @@ from models.model_crossattn import VisionTransformer, CONFIGS
 
 
 #from utils.dataloader_act import TestDataloader
-os.environ['CUDA_VISIBLE_DEVICES'] = '6'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
 def validate(dist_array, top_k):
