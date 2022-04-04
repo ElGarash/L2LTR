@@ -76,6 +76,7 @@ class TestDataloader(Dataset):
         self.polar = args.polar
 
         self.img_root = args.dataset_dir
+        self.img_root_polar = self.img_root.replace('/cvusa-dataset/cvusa-localization', '/dsm-dynamic-similarity-matching/Data/CVUSA')
         self.test_list = self.img_root + 'splits/val-19zl.csv'
 
         self.transform = transforms.Compose(
@@ -98,7 +99,7 @@ class TestDataloader(Dataset):
                 pano_id = (data[0].split('/')[-1]).split('.')[0]
                 # satellite filename, streetview filename, pano_id
                 if self.polar:
-                    item1 = self.img_root + data[0].replace('bing', 'polar').replace('jpg', 'png')
+                    item1 = self.img_root_polar + data[0].replace('bing', 'polar').replace('jpg', 'png')
                 else:
                     item1 = self.img_root + data[0]
                 
