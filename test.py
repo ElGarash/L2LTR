@@ -103,8 +103,8 @@ test_loader = DataLoader(testset,
 model_grd.to(device)
 model_sat.to(device)
 
-sat_global_descriptor = np.zeros([8884, 768])
-grd_global_descriptor = np.zeros([8884, 768])
+sat_global_descriptor = np.zeros([120, 768])
+grd_global_descriptor = np.zeros([120, 768])
 val_i =0
 
 model_grd.eval()
