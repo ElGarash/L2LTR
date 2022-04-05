@@ -129,8 +129,8 @@ class TestDataloader(Dataset):
             transforms.Normalize(mean = (0.485, 0.456, 0.406), std = (0.229, 0.224, 0.225))] )
 
         self.__cur_test_id = 0  # for training
-        self.id_test_list = (SELECTED_AERIAL_POLAR, SELECTED_GROUND)
-        self.id_test_idx_list = SELECTED_INDICES
+        self.id_test_list = (aerial_files_path[:20000], ground_files_path[:20000])
+        self.id_test_idx_list = [index for index in range(len(aerial_files_path[:20000]))]
 
         self.test_data_size = len(self.id_test_list[0])
         print(f'Number of polar aerial images {len(self.id_test_list[0])}')
