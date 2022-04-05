@@ -96,7 +96,7 @@ testset = TestDataloader(args)
 test_loader = DataLoader(testset,
                         batch_size=args.eval_batch_size,
                         shuffle=False, 
-                        num_workers=4)
+                        num_workers=2)
 
 
 
