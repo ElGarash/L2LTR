@@ -11,6 +11,7 @@ from tqdm import tqdm
 import scipy.io as scio
 import torch.nn.functional as F
 import argparse
+import pickle
 
 from models.model_crossattn import VisionTransformer, CONFIGS
 #from utils.data_utils import get_loader
@@ -19,6 +20,7 @@ from models.model_crossattn import VisionTransformer, CONFIGS
 #from utils.dataloader_act import TestDataloader
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
+DESCRIPTORS_DIRECTORY = '/kaggle/working/descriptors/L2LTR'
 
 def validate(dist_array, top_k):
     accuracy = 0.0
@@ -66,6 +68,10 @@ parser.add_argument("--eval_batch_size", default=32, type=int,
 args = parser.parse_args()
 print(args)
 
+
+if os.path.exists(f"{DESCRIPTORS_DIRECTORY}/satellite_descriptors.pkl"):
+        print("Satellite descriptor already exists on the file system.")
+        exit(0)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 args.n_gpu = torch.cuda.device_count()
@@ -129,19 +135,13 @@ with torch.no_grad():
         val_i += sat_global.shape[0]
 
 
-print('   compute accuracy')
-dist_array = 2.0 - 2.0 * np.matmul(sat_global_descriptor, grd_global_descriptor.T)
-    
-top1_percent = int(dist_array.shape[0] * 0.01) + 1
-val_accuracy = np.zeros((1, top1_percent))
-
-print('start')
-
-for i in tqdm(range(top1_percent)):
-    val_accuracy[0, i] = validate(dist_array, i)
+if not os.path.exists(DESCRIPTORS_DIRECTORY):
+        os.makedirs(DESCRIPTORS_DIRECTORY)
 
 
-print('top1', ':', val_accuracy[0, 1])
-print('top5', ':', val_accuracy[0, 5])
-print('top10', ':', val_accuracy[0, 10])
-print('top1%', ':', val_accuracy[0, -1])
+with open(f"{DESCRIPTORS_DIRECTORY}/satellite_descriptors.pkl", 'wb') as f:
+    pickle.dump(sat_global_descriptor, f)
+
+
+with open(f"{DESCRIPTORS_DIRECTORY}/ground_descriptors.pkl", 'wb') as f:
+    pickle.dump(grd_global_descriptor, f)
