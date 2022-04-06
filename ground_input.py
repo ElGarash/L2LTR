@@ -87,3 +87,6 @@ with torch.no_grad():
 dist_array = 2.0 - 2.0 * np.matmul(sat_global_descriptor, grd_global_descriptor.T)
 
 print('dist_array shape', dist_array.shape)
+
+with open(f"{DESCRIPTORS_DIRECTORY}/dist_array.pkl", 'wb') as f:
+    pickle.dump(dist_array, f)
