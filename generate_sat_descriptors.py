@@ -160,6 +160,8 @@ with torch.no_grad():
         val_i += sat_global.shape[0]
 
 
+dist_array = 2.0 - 2.0 * np.matmul(sat_global_descriptor, grd_global_descriptor.T)
+
 if not os.path.exists(DESCRIPTORS_DIRECTORY):
     os.makedirs(DESCRIPTORS_DIRECTORY)
 
@@ -170,3 +172,6 @@ with open(f"{DESCRIPTORS_DIRECTORY}/satellite_descriptors.pkl", "wb") as f:
 
 with open(f"{DESCRIPTORS_DIRECTORY}/ground_descriptors.pkl", "wb") as f:
     pickle.dump(grd_global_descriptor, f)
+
+with open(f"{DESCRIPTORS_DIRECTORY}/dist_array_total.pkl", "wb") as f:
+    pickle.dump(dist_array, f)
