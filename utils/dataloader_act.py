@@ -24,7 +24,7 @@ class TrainDataloader(DataLoader):
             transforms.ToTensor(),
             transforms.Normalize(mean = (0.485, 0.456, 0.406), std = (0.229, 0.224, 0.225))] )
 
-        self.allDataList = './ACT_data.mat'
+        self.allDataList = '/kaggle/input/cvact-small/ACT_data.mat'
 
         __cur_allid = 0  # for training
         id_alllist = []
@@ -38,10 +38,10 @@ class TrainDataloader(DataLoader):
         for i in range(0,len(anuData['panoIds'])):
             
             if self.polar:
-                grd_id_align = self.img_root + 'streetview/' + anuData['panoIds'][i] + '_grdView.png'
-                sat_id_ori = self.img_root + 'polarmap/' + anuData['panoIds'][i] + '_satView_polish.png'
+                grd_id_align = self.img_root + 'streetview_polish/' + anuData['panoIds'][i] + '_grdView.jpg'
+                sat_id_ori = self.img_root + 'polarmap/' + anuData['panoIds'][i] + '_satView_polish.jpg'
             else:
-                grd_id_align = self.img_root + 'streetview/' + anuData['panoIds'][i] + '_grdView.jpg'
+                grd_id_align = self.img_root + 'streetview_polish/' + anuData['panoIds'][i] + '_grdView.jpg'
                 sat_id_ori = self.img_root + 'satview_polish/' + anuData['panoIds'][i] + '_satView_polish.jpg'
             id_alllist.append([ grd_id_align, sat_id_ori])
             id_idx_alllist.append(idx)
@@ -99,7 +99,7 @@ class TestDataloader(DataLoader):
             transforms.ToTensor(),
             transforms.Normalize(mean = (0.485, 0.456, 0.406), std = (0.229, 0.224, 0.225))] )
 
-        self.allDataList = './ACT_data.mat'
+        self.allDataList = '/kaggle/input/cvact-small/ACT_data.mat'
 
         __cur_allid = 0  # for training
         id_alllist = []
@@ -114,10 +114,10 @@ class TestDataloader(DataLoader):
             
             if self.polar:
                 # polar transform and crop the ground view
-                grd_id_align = self.img_root + 'streetview/' + anuData['panoIds'][i] + '_grdView.png'
-                sat_id_ori = self.img_root + 'polarmap/' + anuData['panoIds'][i] + '_satView_polish.png'
+                grd_id_align = self.img_root + 'streetview_polish/' + anuData['panoIds'][i] + '_grdView.jpg'
+                sat_id_ori = self.img_root + 'polarmap/' + anuData['panoIds'][i] + '_satView_polish.jpg'
             else:
-                grd_id_align = self.img_root + 'streetview/' + anuData['panoIds'][i] + '_grdView.jpg'
+                grd_id_align = self.img_root + 'streetview_polish/' + anuData['panoIds'][i] + '_grdView.jpg'
                 sat_id_ori = self.img_root + 'satview_polish/' + anuData['panoIds'][i] + '_satView_polish.jpg'
             id_alllist.append([ grd_id_align, sat_id_ori])
             id_idx_alllist.append(idx)
