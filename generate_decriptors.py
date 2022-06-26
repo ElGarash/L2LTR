@@ -23,8 +23,8 @@ from models.model_crossattn import VisionTransformer, CONFIGS
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 DESCRIPTORS_DIRECTORY = "/kaggle/working/descriptors/L2LTR"
-L2LTR_OUTPUT_DIR = "/kaggle/working/models/L2LTR/EgoTR_model/CVUSA/"
-DATASET_DIR = "/kaggle/input/cvusa-dataset/cvusa-localization/"
+L2LTR_OUTPUT_DIR = "/kaggle/working/models/EgoTR_model/CVACT/"
+DATASET_DIR = "/kaggle/input/cvact-polar-images/cvact-small/"
 
 
 def validate(dist_array, top_k):
@@ -44,12 +44,12 @@ def validate(dist_array, top_k):
 parser = argparse.ArgumentParser()
 # Required parameters
 parser.add_argument(
-    "--name", default="CVUSA", help="Name of this run. Used for monitoring."
+    "--name", default="CVACT", help="Name of this run. Used for monitoring."
 )
 parser.add_argument(
     "--dataset",
     choices=["CVUSA", "CVACT"],
-    default="CVUSA",
+    default="CVACT",
     help="Which downstream task.",
 )
 parser.add_argument(
@@ -95,7 +95,7 @@ print(args)
 
 
 if os.path.exists(f"{DESCRIPTORS_DIRECTORY}/satellite_descriptors.pkl"):
-    print("Satellite descriptor already exists on the file system.")
+    print("Satellite descriptors already exist on the file system.")
     exit(0)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
